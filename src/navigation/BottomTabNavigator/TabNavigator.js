@@ -22,12 +22,12 @@ export default function TabNavigator() {
   return (
     <React.Fragment>
       <Tab.Navigator
-        initialRouteName="CommunityChat"
+        initialRouteName="Home"
         tabBarOptions={{
           showLabel: false,
         }}
         screenOptions={({route}) => ({
-          tabBarStyle: {backgroundColor: color_light.background},
+          tabBarStyle: {backgroundColor: color_light.background, padding: 10},
           tabBarIcon: ({focused}) => {
             let iconName;
             if (route.name === 'Home') {
@@ -41,7 +41,13 @@ export default function TabNavigator() {
                 </View>
               ) : (
                 <View style={Styles.tabIconContainer}>
-                  <Image style={Styles.tabIcons} source={images.home} />
+                  <Image
+                    style={[
+                      Styles.tabIcons,
+                      {tintColor: color_dark.light_black},
+                    ]}
+                    source={images.home}
+                  />
                   <Text style={Styles.unSelectedText}>Home</Text>
                 </View>
               );

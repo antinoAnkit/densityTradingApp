@@ -15,14 +15,18 @@ const data = [
   {quarter: 6, earnings: 16500},
   {quarter: 7, earnings: 14250},
   {quarter: 8, earnings: 19000},
+  {quarter: 9, earnings: 13000},
+  {quarter: 10, earnings: 16500},
+  {quarter: 11, earnings: 14250},
+  {quarter: 12, earnings: 19000},
 ];
 
 const Chart = () => {
   return (
     <View style={commonStyles.container}>
-      <Text style={commonStyles.text}>Chart</Text>
+      {/* <Text style={commonStyles.text}>Chart</Text> */}
       <VictoryChart animate={true} width={400} theme={VictoryTheme.material}>
-        <VictoryBar data={data} x="quarter" y="earnings" />
+        <VictoryBar animate={true} data={data} x="quarter" y="earnings" />
       </VictoryChart>
       {/* <ChartHeader /> */}
     </View>

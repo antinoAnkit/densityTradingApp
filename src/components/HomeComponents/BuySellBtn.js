@@ -22,7 +22,8 @@ export default BuySellBtn;
 
 const styles = StyleSheet.create({
   btnContainer: {
-    flex: 0.13,
+    // flex: 0.13,
+    width: '100%',
     backgroundColor: color_dark.black,
     // backgroundColor: 'white',
     flexDirection: 'row',
@@ -30,18 +31,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buyBtn: {
-    width: getDimen(0.45),
-    height: getDimen(0.13),
+    width: 170,
+    height: 50,
     backgroundColor: color_dark.green,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 10,
   },
   sellBtn: {
-    width: getDimen(0.45),
-    height: getDimen(0.13),
+    width: 170,
+    height: 50,
     backgroundColor: color_dark.red,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 10,
   },
   btnText: {
     color: color_dark.white,
