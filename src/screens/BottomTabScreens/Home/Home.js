@@ -33,7 +33,6 @@ const Home = () => {
       <AppHeader />
       <Header />
       <Stack.Navigator>{TabStack()}</Stack.Navigator>
-
       <BuySellBtn />
     </View>
   );

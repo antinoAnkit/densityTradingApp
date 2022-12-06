@@ -19,15 +19,18 @@ import lightColors from '../constants/color_light.json';
 // screens and components
 import TabNavigator from './BottomTabNavigator/TabNavigator';
 import {AuthContext} from '../components/context';
+import SignIn from '../screens/onBoarding/SignIn';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {tokens} from 'react-native-paper/lib/typescript/styles/themes/v3/tokens';
 
 const Stack = createNativeStackNavigator();
 
-const HomeStack = () => {
+const LoginStack = () => {
   return (
     <>
       <Stack.Screen
-        name="Home"
-        component={TabNavigator}
+        name="SignIn"
+        component={SignIn}
         options={{headerShown: false}}
       />
     </>
@@ -35,6 +38,51 @@ const HomeStack = () => {
 };
 
 const AppNavigator = () => {
+  const [token, settoken] = useState('');
+  useEffect(async () => {
+    var getToken = await AsyncStorage.getItem('token');
+    console.log('tokennn', getToken);
+    settoken(getToken);
+  }, []);
+
+  const HomeStack = () => {
+    return (
+      <>
+        {/* {token ? (
+          <Stack.Screen
+            name="TabNavigator"
+            component={TabNavigator}
+            options={{headerShown: false}}
+          />
+        ) : (
+          <Stack.Screen
+            name="SignIn"
+            component={SignIn}
+            options={{headerShown: false}}
+          />
+        )} */}
+        <Stack.Screen
+          name="SignIn"
+          component={SignIn}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="TabNavigator"
+          component={TabNavigator}
+          options={{headerShown: false}}
+        />
+        {/* <Stack.Screen
+         name="SignIn"
+         component={SignIn}
+         options={{headerShown: false}}
+         /> */}
+      </>
+    );
+  };
+
+  // console.log('tokennn', getToken);
+
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   const authContext = useMemo(
@@ -80,7 +128,7 @@ const AppNavigator = () => {
       <AuthContext.Provider>
         <NavigationContainer>
           <Stack.Navigator>
-            {/* {checkToken ? HomeStack() : HomeStack()} */}
+            {/* {token ? HomeStack() : LoginStack()} */}
             {HomeStack()}
           </Stack.Navigator>
         </NavigationContainer>

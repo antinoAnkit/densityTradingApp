@@ -1,40 +1,61 @@
-import {StyleSheet, Text, View, Button} from 'react-native';
-import React from 'react';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {StyleSheet, Text, View, Button, Alert} from 'react-native';
+import React, {useEffect} from 'react';
+import {
+  GoogleSignin,
+  statusCodes,
+  GoogleSigninButton,
+} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// constants
+import {commonStyles} from '../../constants/commanStyles';
+import showMessage from '../../components/showMessage';
 
-GoogleSignin.configure({
-  webClientId:
-    '52525734264-f60sffjiut8bik3pi7s10mkfau1bja17.apps.googleusercontent.com',
-});
-const SignIn = () => {
-  async function onGoogleButtonPress() {
-    // Check if your device supports Google Play
-    await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
-    await GoogleSignin.signOut();
-    // Get the users ID token
-    const {idToken} = await GoogleSignin.signIn();
+const SignIn = ({navigation}) => {
+  useEffect(() => {
+    GoogleSignin.configure({
+      scopes: ['profile', 'email'],
+      webClientId:
+        '163777662126-ll6nqii133dfk92lmkkv96imgqciip1b.apps.googleusercontent.com',
+      offlineAccess: true,
+      forceCodeForRefreshToken: true,
+    });
+  }, []);
 
-    console.log('toekennnnnn', idToken);
-
-    // Create a Google credential with the token
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-    // Sign-in the user with the credential
-    return auth().signInWithCredential(googleCredential);
-  }
+  const signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log('userInfo', userInfo.idToken);
+      await AsyncStorage.setItem('token', userInfo.idToken);
+      navigation.replace('TabNavigator');
+      showMessage('Sign in successful');
+      this.setState({userInfo});
+    } catch (error) {
+      console.log('errorr', error);
+      // Alert.alert('Something went wrong');
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
+  };
 
   return (
-    <View>
-      <Text>signIn</Text>
-      <Button
-        title="Google Sign-In"
-        onPress={
-          // () => onClickGoogle()
-          onGoogleButtonPress().then(() =>
-            console.log('Signed in with Google!'),
-          )
-        }
+    <View style={commonStyles.container}>
+      <Text style={commonStyles.text}>signIn</Text>
+      {/* <Button title="Google Sign-In" onPress={() => signIn()} /> */}
+      <GoogleSigninButton
+        style={{width: 192, height: 48, alignSelf: 'center'}}
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Dark}
+        onPress={signIn}
+        // disabled={this.state.isSigninInProgress}
       />
     </View>
   );
