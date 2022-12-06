@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "52525734264",
+    "project_id": "density-c041f",
+    "storage_bucket": "density-c041f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52525734264:android:f378ce376fd7a0d9e0508d",
+        "android_client_info": {
+          "package_name": "com.tradingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52525734264-f60sffjiut8bik3pi7s10mkfau1bja17.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwTCEXdSsBPFO_UssutT8ouwnIfMWWPFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52525734264-f60sffjiut8bik3pi7s10mkfau1bja17.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
